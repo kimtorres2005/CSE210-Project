@@ -69,5 +69,4 @@ class Program
         Console.WriteLine("6. Quit Program");
         Console.Write("Enter your option: ");
     }
-
 }
