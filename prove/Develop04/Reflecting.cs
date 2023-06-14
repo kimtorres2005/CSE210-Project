@@ -1,13 +1,20 @@
 class ReflectingActivity : Activity
 {
 
-    int _duration;
+        public ReflectingActivity()
+    {
+        ActivityName = "Reflection Activity";
+        Description = "This activity will help you reflect on times in your life when you have shown strength and resilience.";
+    }
+
     public override void Introduction()
     {
-        Console.WriteLine("Welcome to the Reflecting Activity.\n");
-        Console.WriteLine("This activity will help you reflect on times in your life when you have shown strength and resilience.");
-        Console.WriteLine("This will help you recognize the power you have and how you can use it in other aspects of your life.\n");
-        _duration = GetDur();
+        Console.WriteLine($"Welcome to the {ActivityName}.\n");
+        Console.WriteLine(Description);
+        Duration = GetDur();
+        Console.WriteLine("Starting the Reflecting Activity...");
+        Thread.Sleep(2000); // Pause for 2 seconds
+        Console.Clear();
         RunActivity();
     }
 
@@ -48,7 +55,7 @@ class ReflectingActivity : Activity
         Console.WriteLine("When you have something in mind, press enter to continue.");
         Console.ReadLine();
 
-        Console.WriteLine("\nNow ponder on each of the following _questions as they related to this experience.\n");
+        Console.WriteLine("\nNow ponder on each of the following questions as they related to this experience.\n");
 
         Console.Write("You may begin in:  ");
         for (int k = 5; k > 0; k--)
@@ -60,7 +67,7 @@ class ReflectingActivity : Activity
 
         Console.Clear();
 
-        int _tempDuration = _duration;
+        int _tempDuration = Duration;
 
         foreach (string _question in _questions)
         {
@@ -77,8 +84,9 @@ class ReflectingActivity : Activity
 
         // Displaying ending message.
         Console.WriteLine("\nWell done!");
-        Console.WriteLine("\nYou have completed " + _duration + " seconds of the Reflecting Activity.");
-        Log.AppendLog("Reflecting Activity", _duration);
+        Console.WriteLine("\nYou have completed " + Duration + " seconds of the Reflecting Activity.");
+        Console.WriteLine("Ending the Reflecting Activity...");
+        Thread.Sleep(2000); // Pause for 2 seconds
         Timer();
         Console.Clear();
     }

@@ -1,21 +1,49 @@
-using System.IO;
+using System;
+using System.Threading;
 
 class Activity
 {
     private int _counter;
 
+    protected int Duration { get; set; }
+    protected string ActivityName { get; set; }
+    protected string Description { get; set; }
+
     // Introduction function for each activity.
-    public virtual void Introduction()
+// Introduction function for each activity.
+public virtual void Introduction()
+{
+    Console.WriteLine($"Welcome to the {ActivityName}.\n");
+    Console.WriteLine(Description);
+    Duration = GetDur();
+    if (string.IsNullOrEmpty(ActivityName) || string.IsNullOrEmpty(Description))
     {
+        RunActivity();
+    }
+    else
+    {
+        Console.Clear();
+        RunActivity();
+    }
+}
+
+    public Activity(string activityName, string description)
+    {
+        ActivityName = activityName;
+        Description = description;
     }
 
-    // Function for getting the _duration in seconds from the user.
+    public Activity() { }
+
+
+    // Function for getting the Duration in seconds from the user.
     public int GetDur()
     {
         Console.WriteLine("How long, in seconds, would you like for your session?");
-        string _duration = Console.ReadLine();
-        return Convert.ToInt32(_duration);
+        string duration = Console.ReadLine();
+        return Convert.ToInt32(duration);
     }
+
     public virtual void RunActivity()
     {
     }
@@ -30,15 +58,16 @@ class Activity
         }
         ClearCurrentConsoleLine();
     }
+
     public static void ClearCurrentConsoleLine()
     {
-        int _currentLineCursor = Console.CursorTop;
+        int currentLineCursor = Console.CursorTop;
         Console.SetCursorPosition(0, Console.CursorTop);
         Console.Write(new string(' ', Console.WindowWidth));
-        Console.SetCursorPosition(0, _currentLineCursor);
+        Console.SetCursorPosition(0, currentLineCursor);
     }
 
-    // Function for displaying the timimg icon.
+    // Function for displaying the timing icon.
     public void Turn()
     {
         _counter++;
@@ -59,5 +88,4 @@ class Activity
         }
         Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
     }
-
 }
