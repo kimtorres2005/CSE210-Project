@@ -1,0 +1,4 @@
+SimpleGoal|run|True|100
+EternalGoal|read|False|100
+ChecklistGoal|temp|True|10|3|100|3
+totalScore|430|True|0
