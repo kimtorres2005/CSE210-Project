@@ -43,5 +43,4 @@ class Video
     {
         Console.WriteLine("Number of comments in video: " + comments.Length);
     }
-
 }
