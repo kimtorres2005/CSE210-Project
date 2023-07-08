@@ -6,10 +6,7 @@ class Program3
     {
         // Lecture event
         Console.WriteLine("Event 1 - Lecture\n");
-        Lecture lectureEvent = new Lecture("Lecture", "Professor Barney",
-        "Lecture about programming with classes with Leven Barney in the STC in room 243!",
-        "3/10/2023", "7:00 PM", new Address("210 West 4th South", "Rexburg", "ID", "United States"),
-        "Leven Barney", 100);
+        Lecture lectureEvent = new Lecture
 
         // Getting each description
         Console.WriteLine(lectureEvent.getShortDescription());
