@@ -28,7 +28,7 @@ class Program3
         Console.WriteLine("\nEvent 3 - Outdoor Gathering\n");
         OutdoorGathering outdoorEvent = new OutdoorGathering("Outdoor Gathering", "Snowman Making",
         "Come to the BYU-I stadium field to help each other make snowmen!", "2/26/2023", "8:00 PM",
-        new Address("239 S 1st W", "Rexburg", "ID", "United States"), "Snowing, 4 inches of snow expected");
+        new Address("239 S 1st W", "Rexburg", "ID", "United States"), "Snowing, 5 inches of snow expected");
 
         // Getting each description
         Console.WriteLine(outdoorEvent.getShortDescription());
