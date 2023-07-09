@@ -1,29 +1,22 @@
 public class SimpleGoal : Goal
 {
-    public SimpleGoal(string name, bool completed, int points)
+    public SimpleGoal(string name, int value, bool isComplete) : base(name, value)
     {
-        Name = name;
-        Completed = completed;
-        Points = points;
+        ItsComplete = isComplete;
     }
 
-    public SimpleGoal(string name, int points)
+    public override void Complete()
     {
-        Name = name;
-        Points = points;
+        ItsComplete = true;
     }
 
-    public int Points { get; set; }
-
-    protected override int GetCurrentGoalScore()
+    public override void Display()
     {
-        return Points;
+        Console.WriteLine($"{GetStatus()}: Goal: {Name}: Possible Points: {Value}");
     }
 
-    public void DisplayGoal()
+    public override string GetStatus()
     {
-        Console.WriteLine("Goal Name: " + Name);
-        Console.WriteLine("Points: " + Points);
-        Console.WriteLine("Completion Status: " + (Completed ? "Complete" : "Incomplete"));
+        return ItsComplete ? "[X]" : "[ ]";
     }
 }

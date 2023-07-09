@@ -1,4 +1,4 @@
-SimpleGoal|run|True|100
-EternalGoal|read|False|100
-ChecklistGoal|temp|True|10|3|100|3
-totalScore|430|True|0
+110
+SimpleGoal|speak in church|100|True|0|0|0
+EternalGoal|read scriptures|10|False|0|0|0
+ChecklistGoal|vacation|100|False|0|3|200

@@ -1,25 +1,37 @@
-using System;
-
-public class Goal
+public abstract class Goal
 {
-    public string Name { get; set; }
-    public bool Completed { get; set; }
-    public int Score { get; protected set; }
+    private string _name;
+    private int _value;
+    private bool _itsComplete;
 
-    public virtual void MarkComplete()
+    protected Goal(string name, int value)
     {
-        Completed = true;
-        Score += GetCurrentGoalScore();
+        _name = name;
+        _value = value;
+        _itsComplete = false;
     }
 
-    protected virtual int GetCurrentGoalScore()
+    public string Name
     {
-        return 0;
+        get { return _name; }
+        set { _name = value; }
     }
 
-    internal void SetCompletionStatus(bool completed)
+    public int Value
     {
-        Completed = completed;
+        get { return _value; }
+        set { _value = value; }
     }
 
+    public bool ItsComplete
+    {
+        get { return _itsComplete; }
+        set { _itsComplete = value; }
+    }
+
+    public abstract void Complete();
+
+    public abstract string GetStatus();
+
+    public abstract void Display();
 }

@@ -1,147 +1,169 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
-
-class Program
+public class Program
 {
-    private GoalTracker _tracker;
+    private List<Goal> _goals;
+    private int _score;
+    private GoalTracker _goalTracker;
 
     public Program()
     {
-        _tracker = new GoalTracker();
+        _goals = new List<Goal>();
+        _score = 0;
+        _goalTracker = new GoalTracker();
+    }
+
+    public void AddGoal(Goal goal)
+    {
+        _goals.Add(goal);
+    }
+
+    public void RecordEvent(Goal goal)
+    {
+        if (!goal.ItsComplete)
+        {
+            goal.Complete();
+            _score += goal.Value;
+            Console.WriteLine("Event recorded!");
+            Console.WriteLine($"Current Score: {_score}");
+
+        }
+        else
+        {
+            Console.WriteLine("This goal has already been completed.");
+        }
+    }
+
+    public void DisplayGoals()
+    {
+        Console.WriteLine($"Current Score: {_score}");
+        Console.WriteLine();
+        Console.WriteLine("Goals:");
+        foreach (var goal in _goals)
+        {
+            goal.Display();
+        }
+    }
+
+    public void SaveGoals(string fileName)
+    {
+        _goalTracker.SaveGoalsToFile(_goals, _score, fileName);
+    }
+
+    public void LoadGoals(string fileName)
+    {
+        (_goals, _score) = _goalTracker.LoadGoalsFromFile(fileName);
     }
 
     public void Run()
     {
         while (true)
         {
-            Console.WriteLine("========== Goal Tracker ==========");
-            Console.WriteLine("1. Create Goal");
+            Console.WriteLine("Eternal Quest Program");
+            Console.WriteLine();
+            Console.WriteLine("1. Add Goal");
             Console.WriteLine("2. Record Event");
             Console.WriteLine("3. Display Goals");
-            Console.WriteLine("4. Save Goals");
-            Console.WriteLine("5. Load Goals");
+            Console.WriteLine("4. Load Goals");
+            Console.WriteLine("5. Save Goals");
             Console.WriteLine("6. Exit");
+            Console.Write("Enter a choice: ");
+            int choice = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine();
 
-            Console.Write("Enter your _choice: ");
-            string _choice = Console.ReadLine();
+            switch (choice)
+            {
+                case 1:
+                    Console.WriteLine("Types of goals:");
+                    Console.WriteLine("1. Simple Goal");
+                    Console.WriteLine("2. Eternal Goal");
+                    Console.WriteLine("3. Checklist Goal");
+                    Console.WriteLine();
+                    Console.Write("Enter a goal type: ");
+                    int goalType = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Enter what you want to name the goal: ");
+                    string name = Console.ReadLine();
+                    Console.Write("Enter the value of the goal: ");
+                    int value = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine();
 
-            if (_choice == "1")
-            {
-                CreateGoal();
-            }
-            else if (_choice == "2")
-            {
-                RecordEvent();
-            }
-            else if (_choice == "3")
-            {
-                DisplayGoals();
-            }
-            else if (_choice == "4")
-            {
-                SaveGoals();
-            }
-            else if (_choice == "5")
-            {
-                LoadGoals();
-            }
-            else if (_choice == "6")
-            {
-                Console.WriteLine("Goodbye!");
-                break;
-            }
-            else
-            {
-                Console.WriteLine("Invalid _choice. Please try again.");
+                    switch (goalType)
+                    {
+                        case 1:
+                            AddGoal(new SimpleGoal(name, value, false));
+                            break;
+                        case 2:
+                            AddGoal(new EternalGoal(name, value, false));
+                            break;
+                        case 3:
+                            Console.Write("Enter the required times for the goal to be marked complete: ");
+                            int requiredTimes = Convert.ToInt32(Console.ReadLine());
+                            Console.Write("Enter the bonus value for completing the goal: ");
+                            int bonus = Convert.ToInt32(Console.ReadLine());
+                            bool isComplete = false;
+                            int timesCompleted = 0;
+                            AddGoal(new ChecklistGoal(name, value, isComplete, timesCompleted, requiredTimes, bonus));
+                            break;
+                        default:
+                            Console.WriteLine("Invalid goal type.");
+                            break;
+                    }
+                    break;
+                case 2:
+                    Console.WriteLine("Select what goal you would like to record: ");
+                    for (int i = 0; i < _goals.Count; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. {_goals[i].Name}");
+                    }
+                    Console.Write("Enter the goal number: ");
+                    int goalNumber = Convert.ToInt32(Console.ReadLine());
+
+                    if (goalNumber > 0 && goalNumber <= _goals.Count)
+                    {
+                        RecordEvent(_goals[goalNumber - 1]);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid number.");
+                    }
+                    Console.WriteLine();
+                    break;
+                case 3:
+                    DisplayGoals();
+                    Console.WriteLine();
+                    break;
+                case 4:
+                    Console.Write("Enter what file you want to load goals from: ");
+                    string loadFileName = Console.ReadLine();
+                    LoadGoals(loadFileName);
+                    Console.WriteLine("Goals loaded!");
+                    Console.WriteLine();
+                    break;
+                case 5:
+                    Console.Write("Enter file name to save goals: ");
+                    string saveFileName = Console.ReadLine();
+                    SaveGoals(saveFileName);
+                    Console.WriteLine("Goals saved!");
+                    Console.WriteLine();
+                    break;
+                case 6:
+                    Console.WriteLine("Remember to enter the goals as you complete them. Goodbye!");
+                    Console.WriteLine();
+                    return;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    break;
             }
 
-            // Display the score after each operation
-            Console.WriteLine("Score: " + _tracker.GetScore());
             Console.WriteLine();
         }
     }
 
-
-    private void CreateGoal()
+    public static void Main(string[] args)
     {
-        Console.WriteLine("========== Create Goal ==========");
-        Console.WriteLine("1. Simple Goal");
-        Console.WriteLine("2. Eternal Goal");
-        Console.WriteLine("3. Checklist Goal");
-
-        Console.Write("Enter the goal type: ");
-        string _goalType = Console.ReadLine();
-
-        if (_goalType == "1")
-        {
-            Console.Write("Enter the goal _name: ");
-            string _name = Console.ReadLine();
-            Console.Write("Enter the points for completing the goal: ");
-            int points = int.Parse(Console.ReadLine());
-            _tracker.CreateGoal("simple", _name, points);
-        }
-        else if (_goalType == "2")
-        {
-            Console.Write("Enter the goal _name: ");
-            string _name = Console.ReadLine();
-            Console.Write("Enter the points for each completion: ");
-            int points = int.Parse(Console.ReadLine());
-            _tracker.CreateGoal("eternal", _name, points);
-        }
-        else if (_goalType == "3")
-        {
-            Console.Write("Enter the goal _name: ");
-            string _name = Console.ReadLine();
-            Console.Write("Enter the points for each completion: ");
-            int _perCompletionPoints = int.Parse(Console.ReadLine());
-            Console.Write("Enter the target completion count: ");
-            int _targetCount = int.Parse(Console.ReadLine());
-            Console.Write("Enter the bonus points for achieving the target: ");
-            int _bonusPoints = int.Parse(Console.ReadLine());
-            _tracker.CreateGoal("checklist", _name, _perCompletionPoints, _targetCount, _bonusPoints);
-        }
-        else
-        {
-            Console.WriteLine("Invalid goal type. Please try again.");
-        }
-    }
-
-    private void RecordEvent()
-    {
-        Console.WriteLine("========== Record Event ==========");
-        Console.Write("Enter the _name of the goal to record an event: ");
-        string _goalName = Console.ReadLine();
-        _tracker.RecordEvent(_goalName);
-    }
-
-    private void DisplayGoals()
-    {
-        Console.WriteLine("========== Goals ==========");
-        Console.WriteLine("Score: " + _tracker.GetScore());
-        _tracker.DisplayGoals();
-    }
-
-
-    private void SaveGoals()
-    {
-        Console.Write("Enter the file path to save goals: ");
-        string filePath = Console.ReadLine();
-        _tracker.SaveGoals(filePath);
-        Console.WriteLine("Goals saved successfully.");
-    }
-
-    private void LoadGoals()
-    {
-        Console.Write("Enter the file path to load goals: ");
-        string filePath = Console.ReadLine();
-        _tracker.LoadGoals(filePath);
-        Console.WriteLine("Goals loaded successfully.");
-    }
-
-    static void Main(string[] args)
-    {
-        Program _program = new Program();
-        _program.Run();
+        Program eternalQuest = new Program();
+        eternalQuest.Run();
     }
 }

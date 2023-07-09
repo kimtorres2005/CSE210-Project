@@ -1,35 +1,22 @@
 public class EternalGoal : Goal
 {
-    public EternalGoal(string name, bool completed, int points)
+    public EternalGoal(string name, int value, bool isComplete) : base(name, value)
     {
-        Name = name;
-        Completed = completed;
-        Points = points;
+        ItsComplete = isComplete;
     }
 
-    public EternalGoal(string name, int points)
+    public override void Complete()
     {
-        Name = name;
-        Points = points;
+        // No action required for EternalGoal
     }
 
-    public int Points { get; set; }
-
-    protected override int GetCurrentGoalScore()
+    public override void Display()
     {
-        return Points;
+        Console.WriteLine($"{GetStatus()}: Goal: {Name}: Possible Points: {Value}");
     }
 
-    public override void MarkComplete()
+    public override string GetStatus()
     {
-        // Override the MarkComplete method to prevent eternal goals from being marked as completed
-        // Remove the implementation so that eternal goals cannot be completed
-    }
-
-    public void DisplayGoal()
-    {
-        Console.WriteLine("Goal Name: " + Name);
-        Console.WriteLine("Points: " + Points);
-        Console.WriteLine("Completion Status: Incomplete");
+        return "[ ]";
     }
 }

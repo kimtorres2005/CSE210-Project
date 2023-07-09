@@ -1,68 +1,68 @@
-using System;
-using System.Collections.Generic;
-
 public class ChecklistGoal : Goal
 {
-    public ChecklistGoal(string name, bool completed, int perCompletionPoints, int targetCount, int bonusPoints, int completions)
+    private int _requiredTimes;
+    private int _timesCompleted;
+    private int _bonus;
+
+    public ChecklistGoal(string name, int value, bool isComplete, int timesCompleted, int requiredTimes, int bonus)
+        : base(name, value)
     {
-        Name = name;
-        Completed = completed;
-        PerCompletionPoints = perCompletionPoints;
-        TargetCount = targetCount;
-        BonusPoints = bonusPoints;
-        Completions = completions;
+        ItsComplete = isComplete;
+        _timesCompleted = timesCompleted;
+        _requiredTimes = requiredTimes;
+        _bonus = bonus;
     }
 
-    public ChecklistGoal(string name, int perCompletionPoints, int targetCount, int bonusPoints)
+    public int RequiredTimes
     {
-        Name = name;
-        PerCompletionPoints = perCompletionPoints;
-        TargetCount = targetCount;
-        BonusPoints = bonusPoints;
+        get { return _requiredTimes; }
+        set { _requiredTimes = value; }
     }
 
-    public ChecklistGoal(string name, int perCompletionPoints, int targetCount, int bonusPoints, int completions) : this(name, perCompletionPoints, targetCount, bonusPoints)
+    public int TimesCompleted
     {
+        get { return _timesCompleted; }
+        set { _timesCompleted = value; }
     }
 
-    public int PerCompletionPoints { get; set; }
-    public int TargetCount { get; set; }
-    public int BonusPoints { get; set; }
-    public int Completions { get; set; }
-
-    public override void MarkComplete()
+    public int Bonus
     {
-        if (Completions >= TargetCount)
+        get { return _bonus; }
+        set { _bonus = value; }
+    }
+
+    public override void Complete()
+    {
+        TimesCompleted++;
+
+        if (TimesCompleted == RequiredTimes)
         {
-            Score += BonusPoints;
-            base.MarkComplete();
+            Value += Bonus;
+            ItsComplete = true;
+        }
+    }
+
+    public override void Display()
+    {
+        if (TimesCompleted == RequiredTimes)
+        {
+            Console.WriteLine("[X]: Goal: {Name}: Possible Points: {Value}");
         }
         else
         {
-            Score += PerCompletionPoints;
-            Completions++;
-            if (Completions >= TargetCount)
-            {
-                Score += BonusPoints;
-                base.MarkComplete();
-            }
+            Console.WriteLine($"[ ]: Completed {TimesCompleted}/{RequiredTimes} times: Goal: {Name}: Possible Points: {Value}");
         }
     }
 
-    protected override int GetCurrentGoalScore()
+    public override string GetStatus()
     {
-        int _totalScore = 0;
-        if (Completions == TargetCount)
+        if (TimesCompleted == RequiredTimes)
         {
-            _totalScore += BonusPoints;
+            return "[X]";
         }
-        _totalScore += Completions * PerCompletionPoints;
-        return _totalScore;
-    }
-
-    public string GetProgress()
-    {
-        string checkbox = Completions >= TargetCount ? "[x]" : $"[{PerCompletionPoints}]";
-        return $"{checkbox} Completed {Completions}/{TargetCount} times";
+        else
+        {
+            return $"[ ]: Completed {TimesCompleted}/{RequiredTimes} times";
+        }
     }
 }
