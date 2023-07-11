@@ -1,20 +1,22 @@
+using System;
+
 // Comment class, each comment contains the author string and text string
 class Comment
 {
-    public string author;
-    public string text;
+    public string Author;
+    public string Text;
 
     // Comment constructor
-    public Comment(string comment_author, string comment_text)
+    public Comment(string commentAuthor, string commentText)
     {
-        author = comment_author;
-        text = comment_text;
+        Author = commentAuthor;
+        Text = commentText;
     }
 
     // Function to print the details of the comment in a formatted way
-    public void printComment()
+    public void PrintComment()
     {
-        string formatted_comment = '"' + text + '"' + " - " + author;
-        Console.WriteLine(formatted_comment);
+        string formattedComment = '"' + Text + '"' + " - " + Author;
+        Console.WriteLine(formattedComment);
     }
 }
