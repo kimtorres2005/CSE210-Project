@@ -8,60 +8,66 @@ public class Address
     private string country;
     private bool isUSA;
 
-    // Address constructor method
-    public Address(string street_address, string city_address, string state_province_address, string country_address)
-    {
-        street = street_address;
-        city = city_address;
-        state_province = state_province_address;
-        country = country_address;
-        if (country.Equals("USA") || country.Equals("United States")) isUSA = true;
-    }
+// Address constructor method
+public Address(string streetAddress, string cityAddress, string stateProvinceAddress, string countryAddress)
+{
+    _street = streetAddress;
+    _city = cityAddress;
+    _stateProvince = stateProvinceAddress;
+    _country = countryAddress;
+    if (_country.Equals("USA") || _country.Equals("United States")) _isUSA = true;
+}
 
-    // Method that returns a boolean which is true if the country is USA
-    public bool getIsUSA()
-    {
-        return isUSA;
-    }
+// Method that returns a boolean which is true if the country is USA
+public bool GetIsUSA()
+{
+    return _isUSA;
+}
 
-    // This method returns the address in a formatted string to be used for a label
-    public string formattedAddress()
-    {
-        string faddress = string.Format("{0}\n{1}, {2}\n{3}", street, city, state_province, country);
-        return faddress;
-    }
+// This method returns the address in a formatted string to be used for a label
+public string FormattedAddress()
+{
+    string formattedAddress = string.Format("{0}\n{1}, {2}\n{3}", _street, _city, _stateProvince, _country);
+    return formattedAddress;
+}
 
-    // GETTER AND SETTER METHODS FOR PRIVATE VARIABLES
-    public string getStreet()
-    {
-        return street;
-    }
-    public void setStreet(string new_street)
-    {
-        street = new_street;
-    }
-    public string getCity()
-    {
-        return city;
-    }
-    public void setCity(string new_city)
-    {
-        city = new_city;
-    }
-    public string getStateProvince()
-    {
-        return state_province;
-    }
-    public void setStateProvince(string new_state_province)
-    {
-        state_province = new_state_province;
-    }
-    public string getCountry()
-    {
-        return country;
-    }
-    public void setCountry(string new_country)
-    {
-        country = new_country;
-    }
+// Getter and setter methods for private variables
+public string GetStreet()
+{
+    return _street;
+}
+
+public void SetStreet(string newStreet)
+{
+    _street = newStreet;
+}
+
+public string GetCity()
+{
+    return _city;
+}
+
+public void SetCity(string newCity)
+{
+    _city = newCity;
+}
+
+public string GetStateProvince()
+{
+    return _stateProvince;
+}
+
+public void SetStateProvince(string newStateProvince)
+{
+    _stateProvince = newStateProvince;
+}
+
+public string GetCountry()
+{
+    return _country;
+}
+
+public void SetCountry(string newCountry)
+{
+    _country = newCountry;
 }

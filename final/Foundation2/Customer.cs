@@ -5,38 +5,36 @@ public class Customer
     private string name;
     private Address address;
 
-    // Customer constructor method
-    public Customer(string customer_name, Address customer_address)
-    {
-        name = customer_name;
-        address = customer_address;
-    }
+// Customer constructor method
+public Customer(string customerName, Address customerAddress)
+{
+    _name = customerName;
+    _address = customerAddress;
+}
 
-    // Method to return a boolean (true or false) if the address is in the united states
-    public bool isAddressInUSA()
-    {
-        return address.getIsUSA();
-    }
+// Method to return a boolean (true or false) if the address is in the United States
+public bool IsAddressInUSA()
+{
+    return _address.GetIsUSA();
+}
 
+// Getter and setter methods for private variables
+public string GetName()
+{
+    return _name;
+}
 
-    // GETTER AND SETTER METHODS FOR PRIVATE VARIABLES
-    public string getName()
-    {
-        return name;
-    }
+public void SetName(string newName)
+{
+    _name = newName;
+}
 
-    public void setName(string new_name)
-    {
-        name = new_name;
-    }
+public Address GetAddress()
+{
+    return _address;
+}
 
-    public Address getAddress()
-    {
-        return address;
-    }
-
-    public void setAddress(Address new_address)
-    {
-        address = new_address;
-    }
+public void SetAddress(Address newAddress)
+{
+    _address = newAddress;
 }
