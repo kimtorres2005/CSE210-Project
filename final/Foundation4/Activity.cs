@@ -2,53 +2,53 @@
 public class Activity
 {
     // Activity class variables
-    private string type;
-    private int duration;
-    private string date;
+    private string _type;
+    private int _duration;
+    private string _date;
 
     // Activity constructor method
-    public Activity(string activity_type, int activity_duration, string activity_date)
+    public Activity(string type, int duration, string date)
     {
-        type = activity_type;
-        duration = activity_duration;
-        date = activity_date;
+        _type = type;
+        _duration = duration;
+        _date = date;
     }
 
     // Virtual method for getting the distance
-    public virtual double getDistance()
+    public virtual double GetDistance()
     {
         return 0;
     }
 
     // Virtual method for getting the speed
-    public virtual double getSpeed()
+    public virtual double GetSpeed()
     {
         return 0;
     }
 
     // Virtual method for getting the pace
-    public virtual double getPace()
+    public virtual double GetPace()
     {
         return 0;
     }
 
     // Virtual method for returning the activity summary
-    public virtual string getSummary()
+    public virtual string GetSummary()
     {
         return "";
     }
 
     // Getter methods for private variables
-    public int getDuration()
+    public int GetDuration()
     {
-        return duration;
+        return _duration;
     }
-    public string getDate()
+    public string GetDate()
     {
-        return date;
+        return _date;
     }
-    public string getType()
+    public string GetType()
     {
-        return type;
+        return _type;
     }
 }

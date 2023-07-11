@@ -1,8 +1,8 @@
 using System;
 
-class Program4
+class Program
 {
-    public static void Main(string[] args)
+    static void Main(string[] args)
     {
         // Activities list
         Activity[] activities = {
@@ -17,7 +17,7 @@ class Program4
         // Getting the summary for each activity 
         foreach (Activity activity in activities)
         {
-            Console.WriteLine(activity.getSummary());
+            Console.WriteLine(activity.GetSummary());
         }
     }
 }
