@@ -1,21 +1,20 @@
 public class Reception : Event
 {
     // Reception class variables
-    private string emailRSVP;
+    private string _emailRSVP;
 
     // Reception constructor method
-    public Reception(string event_type, string event_title, string event_description, string event_date, string event_time,
-    Address event_address, string event_emailRSVP)
-    : base(event_type, event_title, event_description, event_date, event_time, event_address)
+    public Reception(string eventType, string eventTitle, string eventDescription, string eventDate, string eventTime,
+    Address eventAddress, string eventEmailRSVP)
+    : base(eventType, eventTitle, eventDescription, eventDate, eventTime, eventAddress)
     {
-        emailRSVP = event_emailRSVP;
+        _emailRSVP = eventEmailRSVP;
     }
 
     // Method for returning the full details of the reception event
-    public override string getFullDetails()
+    public override string GetFullDetails()
     {
-        string full_details;
-        full_details = getStandardDetails() + String.Format("Please RSVP for this event at {0}\n", emailRSVP);
-        return full_details;
+        string fullDetails = GetStandardDetails() + $"Please RSVP for this event at {_emailRSVP}\n";
+        return fullDetails;
     }
 }
